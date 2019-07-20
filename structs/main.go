@@ -28,7 +28,7 @@ func main() {
 		email: "ashisrao@email.com",
 	}
 
-	contactPointer := &contact
+	contactPointer := &contact // gives us the address of the struct in the RAM
 	contactPointer.updatePhone(9822147009)
 
 	jimPointer := &jim

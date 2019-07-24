@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -21,7 +22,10 @@ func main() {
 	}
 
 	for l := range c { // watch out for channel c, if there is link in it create a go routine
-		go makeRequest(l, c)
+		go func(link string) { // function literal
+			time.Sleep(5 * time.Second)
+			makeRequest(link, c)
+		}(l)
 	}
 }
 

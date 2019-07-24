@@ -20,8 +20,8 @@ func main() {
 		go makeRequest(link, c)
 	}
 
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	for l := range c { // watch out for channel c, if there is link in it create a go routine
+		go makeRequest(l, c)
 	}
 }
 
@@ -29,9 +29,9 @@ func makeRequest(link string, c chan string) {
 	_, err := http.Get(link)
 	if err != nil {
 		fmt.Println(link, "might be down")
-		c <- "The link could be down"
+		c <- link
 		return
 	}
 	fmt.Println(link, "is up")
-	c <- "The link is working"
+	c <- link
 }

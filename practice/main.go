@@ -2,37 +2,36 @@ package main
 
 import "fmt"
 
-type shape interface {
-	getArea() (string, float64)
-}
-
-type triangle struct {
-	height float64
-	base   float64
-	object string
-}
-
-type square struct {
-	sideLength float64
-	object     string
-}
-
 func main() {
-	t := triangle{2.0, 4.0, "triangle"}
-	s := square{5.5, "square"}
-
-	printArea(t)
-	printArea(s)
+	getSteps(5)
+	getPyramid(5)
 }
 
-func (t triangle) getArea() (string, float64) {
-	return "the area of" + " " + t.object + " is", 0.5 * t.height * t.base
+func getSteps(n int) {
+	for row := 0; row < n; row++ {
+		stair := ""
+		for column := 0; column < n; column++ {
+			if column <= row {
+				stair += "$"
+			} else {
+				stair += " "
+			}
+		}
+		fmt.Println(stair)
+	}
 }
 
-func (s square) getArea() (string, float64) {
-	return "the area of" + " " + s.object + " is", s.sideLength * s.sideLength
-}
-
-func printArea(s shape) {
-	fmt.Println(s.getArea())
+func getPyramid(n int) {
+	midpoint := (2*n - 1) / 2
+	for row := 0; row < n; row++ {
+		level := ""
+		for column := 0; column < 2*n-1; column++ {
+			if midpoint-row <= column && midpoint+row >= column {
+				level += "$"
+			} else {
+				level += " "
+			}
+		}
+		fmt.Println(level)
+	}
 }
